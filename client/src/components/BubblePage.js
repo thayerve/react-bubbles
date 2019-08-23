@@ -23,7 +23,7 @@ const BubblePage = () => {
     })
     .catch(err => console.log("Uh oh! Error fetching colors: ", err.response.status, err.response.data.error));
 
-}, []);
+}, [colorList]);
 
   return (
     <>
