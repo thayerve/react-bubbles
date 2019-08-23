@@ -29,9 +29,25 @@ In this project you will create a login page and request a token from the server
 Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
 - [ ] Explain what a token is used for.
+
+A token is sent by the API as a response to receiving a POST request with expected values, such as correct user credentials. It can then be set to local storage and used as an authorization header in subsequent requests (i.e., via axiosWithAuth), and can act as proof that the user has successfully authenticated.
+
+
 - [ ] What steps can you take in your web apps to keep your data secure?
+
+Use private routes to protected pathways so only authorized users can access the protected data. Use axiosWithAuth to add an authorization header to requests. Add timeouts so tokens expire after a certain amount of time.
+
 - [ ] Describe how web servers work.
+
+Web server can refer to either the computer that stores the website or app's source code, or the program that runs on that computer to serve the code to a browser. The computer generally stays online at all times (and kept cold, because overheating could take it offline!) to be accessible at any moment around the world.
+The server program indexes the files with domain names and URLs, so that when a browser requests the files with the specified URL, the server can locate it and retrieve it from that location to serve to the browser.
+
 - [ ] Which HTTP methods can be mapped to the CRUD acronym that we use when interfacing with APIs/Servers.
+
+C = Create, performed with the POST request.
+R = Read, performed with the GET request.
+U = Update, performed with the PUT request.
+D = Delete, performed with the DELETE request, the only one whose request name matches its letter in the acronym.
 
 
 ## Project Set Up
@@ -46,7 +62,7 @@ Follow these steps to set up and work on your project:
 - [ ] Push commits: git push origin `<firstName-lastName>`.
 - [ ] **RUN** `yarn install or npm install` at the root to retrieve all the dependencies for the node server. You will not need to create any react apps here nor will you need to install any other dependencies. You should have all you need in this repo.
 - [ ] **LOOK** at all the files you've been given for this project. One important file to note is `server.js`. This file contains an **API** that you are going to be interfacing with. Below is documentation on how to interact with the **API**.
-- [ ] **RUN** `yarn start or npm start` to get your API up and running on `http://localhost:3333`. This is the **URL** you're going to need to use within your React app in order to make AJAX requests for data.
+- [ ] **RUN** `yarn start or npm start` to get your API up and running on `http://localhost:5000`. This is the **URL** you're going to need to use within your React app in order to make AJAX requests for data.
 - [ ] **LOOK** at your `client` directory and notice it's just a plain ol' React App that we've built using `create-react-app`.
 - [ ] **cd** into `client` and run `yarn install or npm install` to retrieve the client side dependencies.
 - [ ] **RUN** `yarn start or npm start` to fire up your React application.
