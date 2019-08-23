@@ -7,15 +7,26 @@ const initialColor = {
 };
 
 const ColorList = ({ colors, updateColors }) => {
-  console.log("colors array on mount of ColorList: ", colors);
+  // console.log("colors array on mount of ColorList: ", colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
+  const [colorToAdd, setColorToAdd] = useState(initialColor);
 
   const editColor = color => {
     setEditing(true);
     setColorToEdit(color);
     console.log("colorToEdit from editColor function: ", colorToEdit)
   };
+
+  const addColor = () => {
+    setColorToAdd({...colorToAdd, id: Date.now()});
+    axiosWithAuth()
+      .post(`http://localhost:5000/api/colors/`, colorToAdd)
+      .then(res => {
+        console.log('POST (addColor) request response: ', res)
+      })
+      .catch(err => console.log("Error adding new color: ", err.response.status, err.response.statusText));
+  }
 
   const saveEdit = e => {
     e.preventDefault();
@@ -91,8 +102,39 @@ const ColorList = ({ colors, updateColors }) => {
           </div>
         </form>
       )}
-      <div className="spacer" />
-      {/* stretch - build another form here to add a color */}
+
+      {/* STRETCH - ADD COLOR FORM */}
+      <form onSubmit={
+        colorToAdd !== initialColor ? addColor : null
+        }>
+          <legend>add new color</legend>
+          <label>
+            color name:
+            <input
+              onChange={e =>
+                setColorToAdd({ ...colorToAdd, color: e.target.value })
+              }
+              value={colorToAdd.color}
+            />
+          </label>
+          <label>
+            hex code:
+            <input
+              onChange={e =>
+                setColorToAdd({
+                  ...colorToAdd,
+                  code: { hex: e.target.value }
+                })
+              }
+              value={colorToAdd.code.hex}
+            />
+          </label>
+          <div className="button-row">
+            <button type="submit">save</button>
+            <button onClick={() => setColorToAdd(initialColor)}>start over</button>
+          </div>
+        </form>
+
     </div>
   );
 };
