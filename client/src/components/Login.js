@@ -7,17 +7,21 @@ const Login = (props) => {
         password: ''
     });
 
+    const [loginStatus, setLoginStatus] = useState("");
+
     function handleChange(e) {
         setCreds({ ...creds, [e.target.name]: e.target.value });
     }
 
     function login(e) {
         e.preventDefault();
+        setLoginStatus('');
         axios
             .post(' http://localhost:5000/api/login', creds)
             .then(res => {
                 console.log(res);
                 localStorage.setItem('token', res.data.payload);
+                setLoginStatus("Success! Check out these bubbles");
                 setCreds({
                     username: '',
                     password: ''
@@ -26,11 +30,11 @@ const Login = (props) => {
             })
             .catch(err => {
                 console.log(err.response.data.error);
-                // setLoginStatus(err.response.data.error);
-                // setCreds({
-                //     username: '',
-                //     password: ''
-                // })
+                setLoginStatus(`${err.response.data.error}`);
+                setCreds({
+                    username: '',
+                    password: ''
+                })
             });
     }
 
@@ -65,6 +69,7 @@ const Login = (props) => {
                 </label>
                 <br />
                 <button>Now show me the bubbles!!!</button>
+                {loginStatus ? <p>{loginStatus}</p> : null}
             </form>
         </div>
     );
